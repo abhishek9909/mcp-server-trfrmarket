@@ -9,7 +9,7 @@ import traceback
 # Set R environment variables
 os.environ['R_HOME'] = r"C:\Program Files\R\R-4.5.0"
 os.environ['R_USER'] = r"C:\Program Files\R\R-4.5.0"
-os.environ['R_LIBS_USER'] = r"C:/Users/abhmishra/Desktop/RLib/library"
+os.environ['R_LIBS_USER'] = ""
 
 # Create MCP server
 mcp = FastMCP("WorldFootballR")
