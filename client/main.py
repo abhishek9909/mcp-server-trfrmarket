@@ -90,8 +90,8 @@ class MCPClient:
 
         system_message = '''You are a helpful data analysis tool that can call tools and respond to user queries.
                     Some user queries may require multiple tool calls in sequence.
-                    You can decide to a) call a tool, b) 'CONTINUE' the conversation or c) 'ANALYZE' the conversation and provide a final answer to the user.
-                    Add CONTINUE:  or STOP:  as text at the beginning of the response to indicate your choice.
+                    You can decide to a) call a tool, b) 'CONTINUE' the conversation or c) 'STOP' the conversation and provide a final answer to the user.
+                    Add `CONTINUE: ` or `STOP: ` as text at the beginning of the response to indicate your choice.
                 '''
 
         messages = [

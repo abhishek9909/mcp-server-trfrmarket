@@ -1,0 +1,51 @@
+question	id
+"""What are the current Premier League standings for matchday 30 in the 2024-2025 season?"""	anthropic_onehop_0
+"""Show me the list of players with expiring contracts in Spain for 2025."""	anthropic_onehop_1
+"""Who are all the injured players in the German Bundesliga right now?"""	anthropic_onehop_2
+"""Can you get me the transfer history of Erling Haaland?"""	anthropic_onehop_3
+"""What are the current market values of players in the Italian Serie A for the 2024-2025 season?"""	anthropic_onehop_4
+"""Which players are currently suspended in the French Ligue 1?"""	anthropic_onehop_5
+"""Who are the players at risk of suspension in the English Premier League?"""	anthropic_onehop_6
+"""What is the injury history of Kevin De Bruyne?"""	anthropic_onehop_7
+"""Show me the squad statistics for FC Barcelona."""	anthropic_onehop_8
+"""What is the managerial history of Liverpool FC?"""	anthropic_onehop_9
+"""Who are the top 5 most valuable players in the English Premier League this season, and what is their injury history?"""	anthropic_twothreehop_0
+"""Compare the transfer activities of Manchester City and Manchester United in the last summer window. Which club spent more?"""	anthropic_twothreehop_1
+"""Find all French players in the Premier League with contracts expiring in 2025, and analyze their market values."""	anthropic_twothreehop_2
+"""Which managers in the Spanish La Liga have the best win percentage, and what teams did they manage before?"""	anthropic_twothreehop_3
+"""Identify Premier League players who have had multiple injuries this season and are currently in the starting lineup."""	anthropic_twothreehop_4
+"""Compare the squad age profiles of the top 3 teams in the Bundesliga. Which team has the youngest squad?"""	anthropic_twothreehop_5
+"""What is the relationship between player market values and minutes played in Serie A this season?"""	anthropic_twothreehop_6
+"""Find all league debutants in the Premier League this season who also have contracts expiring within the next year."""	anthropic_twothreehop_7
+"""Which Premier League team has had the most manager changes in the last 5 years, and how has this affected their league position?"""	anthropic_twothreehop_8
+"""Analyze the correlation between injuries and team performance for the top 6 teams in La Liga this season."""	anthropic_twothreehop_9
+"""Among Premier League managers, which individual sustained the longest uninterrupted spell at the helm despite navigating recurrent disciplinary setbacks within his squad?"""	chatgpt_0
+"""In the annals of La Liga during the 2021â€“2022 campaign, which playerâ€™s record for red cardsâ€”and by extension, consequent suspensionsâ€”stood unparalleled?"""	chatgpt_1
+"""Can you identify the key Serie A protagonist who, between 2020 and 2024, endured the most protracted sidelining period due to injury-induced absences?"""	chatgpt_2
+"""During the 2022â€“2023 Bundesliga season, which managerial tenure was prematurely curtailed as a direct consequence of a cascade of player injuries and subsequent suspensions?"""	chatgpt_3
+"""Over the 2020â€“2024 timeframe in Ligue 1, which player amassed the highest cumulative duration of suspension for on-field infractions?"""	chatgpt_4
+"""What strategic adjustments did a perceptive Premier League manager institute between 2020 and 2024 to counterbalance the recurrent injury risks jeopardizing his squadâ€™s core players?"""	chatgpt_5
+"""Within La Ligaâ€™s 2020â€“2021 season, which playerâ€™s recovery period from an extensive injury proved the swiftest, and how did this expedited return recalibrate his teamâ€™s tactical dynamics?"""	chatgpt_6
+"""Which Serie A side was most beleaguered by prolonged star player absences due to injuries during the 2022â€“2023 season, and what ramifications did this have on their overall league standing?"""	chatgpt_7
+"""In what manner did a Bundesliga manager, during the 2023â€“2024 season, tactically reconfigure his formation to offset the disruptions caused by multiple suspensions?"""	chatgpt_8
+"""Which Ligue 1 club, during the 2020â€“2024 period, underwent the highest frequency of managerial turnovers, a phenomenon partly attributable to the disruptive cycles of player injuries and suspensions?"""	chatgpt_9
+"""Identify the Premier League team that suffered exacerbated match suspensions for recurrent indiscipline, and describe the resultant impact on their final seasonal ranking between 2020 and 2024."""	chatgpt_10
+"""During which La Liga season did a cluster of injuries precipitate the maximum number of match postponements, and how did this anomaly affect the leagueâ€™s competitive scheduling?"""	chatgpt_11
+"""What singular injury incident in Serie A between 2020 and 2024 was so consequential that it precipitated an unforeseen mid-season managerial overhaul, and what short-term tactical shifts followed?"""	chatgpt_12
+"""Which Bundesliga manager garnered commendation for adeptly orchestrating his squadâ€™s performance amid a season marred by an unusually high incidence of player suspensions?"""	chatgpt_13
+"""In the context of the 2022â€“2023 Ligue 1 season, which manager was compelled to employ an extensive rotation policy due to a pervasive injury and suspension dilemma, and what discernible effects were noted on match outcomes?"""	chatgpt_14
+"""Who was the most consistently fielded Premier League player who concurrently registered significant absences stemming from a dual burden of injuries and suspensions during the 2020â€“2024 period?"""	chatgpt_15
+"""Within the 2021â€“2022 La Liga campaign, which teamâ€™s defensive solidity was most critically undermined by the suspension of its primary defenders?"""	chatgpt_16
+"""What is the record for the longest imposed hiatus from competitive play experienced by a Serie A player due to injury between 2020 and 2024, and how did the coaching staff recalibrate their strategic approach in response?"""	chatgpt_17
+"""Can you pinpoint the Bundesliga club that employed a novel managerial paradigm to circumnavigate performance dips during an episode of extensive player unavailability in the 2020â€“2021 season?"""	chatgpt_18
+"""How did the pattern of frequent managerial interchanges in Ligue 1 between 2020 and 2024 correlate with broader team performance metrics during spells characterized by elevated rates of player suspensions?"""	chatgpt_19
+"""Yo, wut r da current Big League standins for m30 in da '24-'25 sesh? Gimme da deets from all da cliques, like them Gooners, Red Devils, etc."""	chatgpt_obs_0
+"""Gimme da lowdown on ballers wit expirin' deals on da Spania turf for 2025 â€“ ya know, even from the Los Blancos crew!"""	chatgpt_obs_1
+"""Which ballers in da Germ League are banged up rn? Holler da scoop on da injured ones, including them from Die Roten, bro!"""	chatgpt_obs_2
+"""Hook me up wit da transf story of that Norse beast, Haaland, ya feel?"""	chatgpt_obs_3
+"""Wut r da markit vals of ballers in da Ital League for da '24-'25 run? Drop details from all sides â€“ from da Old Lady to da other big crews."""	chatgpt_obs_4
+"""Which ballers r on da bench (suspended) in da French top league? Hit me wit da names, even from da PSG posse!"""	chatgpt_obs_5
+"""Yo, which dudes â€“ from the Gooners to the Red Devils â€“ r riskin' suspension in da Big League rn? No cap."""	chatgpt_obs_6
+"""Wut's da injury track record of Kevy D'Bruyne? Spill da tea on his bench time, stat!"""	chatgpt_obs_7
+"""Show me da squad stats for FC Barca â€“ all da Blaugranas lowdown, pronto!"""	chatgpt_obs_8
+"""Wutâ€™s da boss history of da Reds at Liverpudl'n FC, mate? Break it down for me!"""	chatgpt_obs_9
