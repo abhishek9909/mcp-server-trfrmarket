@@ -1,4 +1,5 @@
 import asyncio
+import sys
 from typing import Optional
 from contextlib import AsyncExitStack
 
@@ -16,7 +17,18 @@ class MCPClient:
         self.session: Optional[ClientSession] = None
         self.exit_stack = AsyncExitStack()
         self.anthropic = Anthropic()
+        self.file = None
     # methods will go here
+
+    def assign_file(self):
+        self.file = "logs.txt"
+
+    def print_u(self, *args):
+        if self.file:
+            with open(self.file, 'a') as f:
+                print(args, file=f)
+        else:
+            print(args)
 
     async def connect_to_server(self, server_script_path: str):
         """Connect to an MCP server
@@ -45,17 +57,30 @@ class MCPClient:
         # List available tools
         response = await self.session.list_tools()
         tools = response.tools
-        print("\nConnected to server with tools:", [tool.name for tool in tools])
+        self.print_u("\nConnected to server with tools:", [tool.name for tool in tools])
+
+    def _check_if_message_is_termination(self, response) -> bool:
+        """Check if the response is termination is a termination message"""
+        if response is None:
+            return False
+        content_response = response.content
+        for content in content_response:
+            if content.type == 'text' and "STOP" in content.text:
+                return True
+        return False
+    
+    def _extract_final_text(self, response) -> str:
+        if response is None:
+            return ""
+        content_response = response.content
+        final_text = ""
+        for content in content_response:
+            if content.type == "text":
+                final_text += content.text
+        return final_text.replace("STOP:", "").strip()
 
     async def process_query(self, query: str) -> str:
         """Process a query using Claude and available tools"""
-        messages = [
-            {
-                "role": "user",
-                "content": query
-            }
-        ]
-
         response = await self.session.list_tools()
         available_tools = [{
             "name": tool.name,
@@ -63,62 +88,68 @@ class MCPClient:
             "input_schema": tool.inputSchema
         } for tool in response.tools]
 
-        # Initial Claude API call
-        response = self.anthropic.messages.create(
-            model="claude-3-5-sonnet-20241022",
-            max_tokens=1000,
-            messages=messages,
-            tools=available_tools
-        )
+        system_message = '''You are a helpful data analysis tool that can call tools and respond to user queries.
+                    Some user queries may require multiple tool calls in sequence.
+                    You can decide to a) call a tool, b) 'CONTINUE' the conversation or c) 'ANALYZE' the conversation and provide a final answer to the user.
+                    Add CONTINUE:  or STOP:  as text at the beginning of the response to indicate your choice.
+                '''
 
-        # Process response and handle tool calls
-        final_text = []
+        messages = [
+            {
+                "role": "user",
+                "content": query
+            }
+        ]
 
-        assistant_message_content = []
-        for content in response.content:
-            if content.type == 'text':
-                final_text.append(content.text)
-                assistant_message_content.append(content)
-            elif content.type == 'tool_use':
-                tool_name = content.name
-                tool_args = content.input
+        response = None
+        num_of_calls = 0
+        while not self._check_if_message_is_termination(response) and num_of_calls < 10:
+            self.print_u("\nSending query to Claude...")
+            response = self.anthropic.messages.create(
+                model="claude-3-5-sonnet-20241022",
+                max_tokens=1000,
+                system=system_message,
+                messages=messages,
+                tools=available_tools
+            )
+            num_of_calls += 1
+            self.print_u("\nResponse received from Claude:")
+            for content in response.content:
+                if content.type == 'text':
+                    self.print_u(content)
+                    messages.append({
+                        "role": "assistant",
+                        "content": content.text
+                    })
+                elif content.type == 'tool_use':
+                    self.print_u(content)
+                    tool_name = content.name
+                    tool_args = content.input
 
-                # Execute tool call
-                result = await self.session.call_tool(tool_name, tool_args)
-                final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
-
-                assistant_message_content.append(content)
-                messages.append({
-                    "role": "assistant",
-                    "content": assistant_message_content
-                })
-                messages.append({
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "tool_result",
-                            "tool_use_id": content.id,
-                            "content": result.content
-                        }
-                    ]
-                })
-
-                # Get next response from Claude
-                response = self.anthropic.messages.create(
-                    model="claude-3-5-sonnet-20241022",
-                    max_tokens=1000,
-                    messages=messages,
-                    tools=available_tools
-                )
-
-                final_text.append(response.content[0].text)
-
-        return "\n".join(final_text)
+                    # Execute tool call
+                    result = await self.session.call_tool(tool_name, tool_args)
+                    messages.append({
+                        "role": "assistant",
+                        "content": [content]
+                    })
+                    messages.append({
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "tool_result",
+                                "tool_use_id": content.id,
+                                "content": result.content
+                            }
+                        ]
+                    })        
+        
+        final_text = self._extract_final_text(response)
+        return final_text
 
     async def chat_loop(self):
         """Run an interactive chat loop"""
-        print("\nMCP Client Started!")
-        print("Type your queries or 'quit' to exit.")
+        self.print_u("\nMCP Client Started!")
+        self.print_u("Type your queries or 'quit' to exit.")
 
         while True:
             try:
@@ -128,10 +159,10 @@ class MCPClient:
                     break
 
                 response = await self.process_query(query)
-                print("\n" + response)
+                self.print_u("\n" + response)
 
             except Exception as e:
-                print(f"\nError: {str(e)}")
+                self.print_u(f"\nError: {str(e)}")
 
     async def cleanup(self):
         """Clean up resources"""
@@ -139,16 +170,19 @@ class MCPClient:
 
 async def main():
     if len(sys.argv) < 2:
-        print("Usage: python client.py <path_to_server_script>")
+        self.print_u("Usage: python client.py <path_to_server_script>")
         sys.exit(1)
 
     client = MCPClient()
     try:
         await client.connect_to_server(sys.argv[1])
-        await client.chat_loop()
+        if len(sys.argv) > 2:
+            client.assign_file()
+            await client.process_query(sys.argv[2])
+        else:
+            await client.chat_loop()
     finally:
         await client.cleanup()
 
 if __name__ == "__main__":
-    import sys
     asyncio.run(main())

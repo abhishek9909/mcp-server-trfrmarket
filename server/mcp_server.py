@@ -651,26 +651,29 @@ def get_risk_of_suspension(country_name: str = "", league_url: str = "") -> str:
     return str(result)
 
 # Tool for running custom R code
-@mcp.tool()
-def run_custom_r_code(r_code: str) -> str:
-    """
-    Run custom R code using the worldfootballR package.
+# @mcp.tool()
+# def run_custom_r_code(r_code: str) -> str:
+#     """
+#     Run custom R code using the worldfootballR package.
     
-    Args:
-        r_code: The R code to execute
+#     Args:
+#         r_code: The R code to execute
     
-    Returns:
-        Result of the R code execution
-    """
-    result = execute_r_function(r_code)
-    return str(result)
+#     Returns:
+#         Result of the R code execution
+#     """
+#     result = execute_r_function(r_code)
+#     return str(result)
 
-# Tool for executing Python code to manipulate stored data
+# # Tool for executing Python code to manipulate stored data
 @mcp.tool()
 def execute_python_code(python_code: str) -> str:
     """
     Execute Python code to manipulate dataframes and lists stored on the computer.
     Write code into `intermediate_result.txt` file.
+    Note:
+        - For dataframes, use encoding="ISO-8859-1" when reading CSV files.
+        - For lists, use `f.readlines()` to read the file content.
     
     Args:
         python_code: The Python code to execute
@@ -687,6 +690,9 @@ def execute_python_code(python_code: str) -> str:
             'robjects': robjects,
         }
         
+        with open(f"r_result_pythoncode_{time.time()}.py", "w") as f:
+            f.write(python_code)
+
         # Execute the code
         exec(python_code, {}, local_namespace)
         
